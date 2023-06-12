@@ -8,7 +8,7 @@ Qúa trình compiler bao gồm 4 giai đoạn: preprocesser(tiền xử lý), Co
 Preprocesser: Là bước tiền xử lý của máy, dịch ra từ filec.c sang file.i (preprocessed source). Thay thế tất cả các include < thư viện > bằng các thư viện,
 thay thế define bằng các giá trị, bỏ comments. Câu lệnh: gcc -E file.c -o file.i.
 
-Compiler: Là bước chuyển file từ file.i sang file.s (assembly code). Câu lệnh: gcc  file.i -S file.s.
+Compiler: Là bước chuyển file từ file.i sang file.s (assembly code). Câu lệnh: gcc  file.i -S -o file.s.
 
 Assembler: Là bước chuyển file từ file.s sang file.o + librabries(hình ảnh, âm thanh). Câu lệnh: gcc -c file.s -o file.o.
 
