@@ -37,7 +37,19 @@ printf("Gia tri: %d, *ptr);// * ptr là giá trị của con trỏ ptr trỏ đ�
 
 **VOID POINTER:** Là con trỏ có thể lưu địa chỉ của tất cả các biến có dữ liệu tùy ý, khi trả về giá trị thì nó không hiểu, muốn trả về thì phải ép kiểu cho nó.
 
-Ví dụ: `*(kiểu dữ kiệu*)(biến) = *(int*)(a)`
+Ví dụ: ```sh
+*(kiểu dữ kiệu*)(biến) = *(int*)(ptr)
+
+int a = 10;
+char b = 'c';
+double d = 10.4;
+
+void *ptr;
+ptr = &a
+printf("Dia chi cua a %p, gia tri cua a %d, ptr, *(int*)(ptr);// dia chi cua a 0x.., gia tri cua a 10
+printf("Dia chi cua b %p, gia tri cua b %c, ptr, *(char*)(ptr);
+printf("Dia chi cua c %p, gia tri cua c %f, ptr, *(float*)(ptr);
+```
 
 NULL POINTER: Là con trỏ có dữ liệu và địa chỉ bằng 0, dùng trong trường hợp mà con trỏ chúng ta đã khai báo chưa sử dụng tới hoặc đã sử dụng xong.
 
