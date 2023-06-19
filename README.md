@@ -62,7 +62,7 @@ Kiểu dữ liệu do người dùng tự định nghĩa
 + Có địa chỉ giống với địa chỉ member =>> thay đổi từng member làm thay đổi các member khác.
 + Sử dụng khi chỉ cần lấy 1 member.
   Ví dụ
-  ```sh
+```sh
   #include <stdio.h>
 typedef union{
 unit8_t var1[6]; // kich thuoc 6 byte = kich thuoc cua union
