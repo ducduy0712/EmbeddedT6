@@ -42,6 +42,7 @@ Kiểu dữ liệu do người dùng tự định nghĩa
 + Lấy kích thước của member lớn nhất để sắp xếp bộ nhớ.
 + Có địa chỉ giống với member đầu tiên, các member có địa chỉ khác nhau.
 + Sử dụng khi muốn lấy nhiều member 1 lúc.
++ Kích thước bằng tổng kích thước member.
   Ví dụ
   ```sh
   struc{
@@ -49,6 +50,72 @@ Kiểu dữ liệu do người dùng tự định nghĩa
   uint64_t var 3 // 4 byte // 8 byte dư 0
   uint32_t var2 // 2 byte // 2 byte dư 6
   // Lấy kích thước lớn nhất là 8 byte để lưu =>> cần 24 byte
+
+  struc{
+  uint8_t var1 // 1 byte // 1 byte dư 7 byte, lấy 2 byte ở dưới đắp lên là 3 dư 5
+  uint32_t var2 // 2 byte // 2 byte 
+   uint64_t var 3 // 4 byte // 8 byte dư 0
+  // Lấy kích thước lớn nhất là 8 byte để lưu =>> cần 16 byte
+  ```
+**UNION:**
++ Kích thước bằng với kích thước của member lớn nhất.
++ Có địa chỉ giống với địa chỉ member =>> thay đổi từng member làm thay đổi các member khác.
++ Sử dụng khi chỉ cần lấy 1 member.
+  Ví dụ
+  ```sh
+  #include <stdio.h>
+typedef union{
+unit8_t var1[6]; // kich thuoc 6 byte = kich thuoc cua union
+uint8_t var2[4]; // kich thuoc 4 byte
+uint8_t var3[2]; // kich thuoc 2 byte
+}typeData;
+
+int main(){
+
+typeData data;
+
+for (int i =0; i<6 ; i++){
+data.var1[i] = i; // 0 ,1,2,3,4,5
+}
+
+for (int i =0; i<4 ; i++){
+data.var1[i] = 2*i; // 0 ,2,4,6
+}
+
+for (int i =0; i<2 ; i++){
+data.var1[i] = 3*i; // 0 ,3
+}
+
+printf("%d",data.var1[i]); // in ra 0,3,4,6,5 do thay doi gia tri cua tung member cung anh huong den member khac
+```
+**Ứng dụng:**
+Kết hợp struct và union để gôm lại các giá trị và gửi đi 1 lần
+Ví dụ:
+```sh
+tydef union{
+struct{
+char Id[2];
+char Data[3];
+char Cs[1];
+}data;
+uint8_array[6];
+}Dataframe;
+
+int main(){
+Dataframe dataframe;
+
+dataframe.data.Id[0] = 0x01;
+dataframe.data.Id[1] = 0x02;
+
+dataframe.data.Data[0] = 0xc1;
+dataframe.data.Data[1] = 0xc2;
+dataframe.data.Data[2] = 0xc3;
+
+dataframe.data.Cs[0] = 0xc8; // lúc này mảng array = {0x01,0x02,0xc1,0xc2,0xc3,0xc8}
+
+return 0;
+}
+```
 
   
 ## COMPLIER
