@@ -1,5 +1,39 @@
 # EmbeddedT6
 
+## MACRO & FUNCTION
+
+**MACRO:** 
++ Macro là quá trình tiền xử lý, thay thế phần được định nghĩa vào.
++ Lệnh define để tạo macro. muốn xuống dòng trong macro sử dụng dấu \
+  Ví dụ :
+  ```sh
+  #include <stdio.h>
+  #define MAX 10
+  #define CREATE_FUNC(name_func,cmd)\
+  void name_func(){
+    printf("%s\n",(char*)cmd;\
+    }
+  ```
+
+ **FUNCITON:**
+  + Hàm được sử dụng khi cần giải quyết một vấn đề nhiều lần trong chương trình.  Program counter có tác dụng đếm giá trị trong chương trình, khi đến giá trị của hàm thì trỏ đến vị trí của stack pointer( lưu những địa chỉ không theo quy luật) để lấy giá trị trong hàm.
+    Ví dụ :
+    ```sh
+    #include <stdio.h>
+    void tong(int a, int b){ // 0xc1 
+    printf("tong %d",a+b);
+    }
+    int main (){          // program counter 0x09 
+    A // 0x01 0x02 0x03     // stack pointer co dia chi 0x09 =>> program counter tro vao toi dia chi 0xc1 de thuc hien ham tong
+    B // 0x04 0x05 0x06
+    C // 0x07 0x08
+    tong (7,9); 0x09
+    return 0;
+    ```
+**Ưu và nhược điểm:**
+|MACRO|FUNCTION|
+|----------------------|----------------------|
+|Nhanh do program counter đếm liên tục, nhưng lại tốn thêm bộ nhớ để lưu trữ.|Chậm do program counter phải vào địa chỉ lưu hàm để đọc, nhưng tối ưu được kích thước do chỉ lưu 1 lần.|
 ## COMPLIER
 
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/d03da076-4778-42dc-a42d-9f2a76c4be35)
