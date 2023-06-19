@@ -35,6 +35,22 @@
 |MACRO|FUNCTION|
 |----------------------|----------------------|
 |Nhanh do program counter đếm liên tục, nhưng lại tốn thêm bộ nhớ để lưu trữ.|Chậm do program counter phải vào địa chỉ lưu hàm để đọc, nhưng tối ưu được kích thước do chỉ lưu 1 lần.|
+
+## STRUC & UNION
+Kiểu dữ liệu do người dùng tự định nghĩa
+**STRUC:** 
++ Lấy kích thước của member lớn nhất để sắp xếp bộ nhớ.
++ Có địa chỉ giống với member đầu tiên, các member có địa chỉ khác nhau.
++ Sử dụng khi muốn lấy nhiều member 1 lúc.
+  Ví dụ
+  ```sh
+  struc{
+  uint8_t var1 // 1 byte // 1 byte dư 7 byte
+  uint64_t var 3 // 4 byte // 8 byte dư 0
+  uint32_t var2 // 2 byte // 2 byte dư 6
+  // Lấy kích thước lớn nhất là 8 byte để lưu =>> cần 24 byte
+
+  
 ## COMPLIER
 
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/d03da076-4778-42dc-a42d-9f2a76c4be35)
