@@ -24,7 +24,7 @@
     printf("tong %d",a+b);
     }
     int main (){          // program counter 0x09 
-    A // 0x01 0x02 0x03     // stack pointer co dia chi 0x09 =>> program counter tro vao toi dia chi 0xc1 de thuc hien ham tong
+    A // 0x01 0x02 0x03     // stack pointer co dia chi 0x09 =>> program counter tro vao toi dia chi 0xc1 de thuc hien ham tong sau do ve dia 0x09 roi dem tiep
     B // 0x04 0x05 0x06
     C // 0x07 0x08
     tong (7,9); 0x09
