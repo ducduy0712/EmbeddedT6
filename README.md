@@ -347,3 +347,99 @@ return 0; }
 + Được sử dụng khi giá trị của biến có thể thay đổi không báo trước, tránh việc sai sót do tính năng optimize của compiler ( nhìn code không thay đổi bỏ qua luôn).
   Ví dụ ```volatile int data = readADC();// Báo cho compiler không được optimize biến này```
 + Được sử dụng cho các biến thay đổi data, giá trị liên tục.
+
+# C++
+
+## OOP (Object-Oriented Programming)
+
+**CLASS:** Class hay lớp là một mô tả trừu tượng (abstract) của nhóm các đối tượng (object) có cùng bản chất, ngược lại mỗi một đối tượng là một thể hiện cụ thể (instance) cho những mô tả trừu tượng đó. Một class trong C++ sẽ có các đặc điểm sau:
++ Một class bao gồm các thành phần dữ liệu (thuộc tính hay property) và các phương thức (hàm thành phần hay method).
++ Class thực chất là một kiểu dữ liệu do người lập trình định nghĩa.
++ Trong C++, từ khóa class sẽ chỉ điểm bắt đầu của một class sẽ được cài đặt.
+Ví dụ:
+```sh
+class Person {
+ public:
+ string firstName; // property
+ string lastName; // property
+ int age; // property
+ void fullname() { // method
+ cout << firstName << ' ' << lastName;
+ }
+```
+Cú pháp tạo object của một class và sử dụng các thuộc tính và phương thức:
+```sh
+Person person;
+person.firstName = "Khiem";
+person.lastName = "Le";
+person.fullname(); // sẽ in ra màn hình là "Khiem Le
+```
+**Access modifiers & properties declaration:** là phạm vi truy cập của các thuộc tính và phương thức sẽ được khai
+báo bên dưới nó. Có 3 phạm vi truy cập trong C++ là public, private và protected.
++ Các thuộc tính và phương thức khai báo public thì có thể được truy cập trực tiếp thông qua instance của class đó.Các thuộc tính nên khai báo là public nếu bạn không có ràng buộc điều kiện trước khi gán (người dùng có thể thoải mái gán giá trị) hoặc bạn không cần xử lý trước khi trả về giá trị thuộc tính.
++ Các thuộc tính private thường được sử dụng khi bạn không mong muốn người khác có thể tùy ý gán giá trị hoặc là bạn muốn xử lý trước khi trả về giá trị.
++ Đối với protected, các phương thức và thuộc tính chỉ có thể truy cập qua các class kế thừa nó hoặc chính nó.
+Ví dụ
+```sh
+class MyClass
+{
+pubic:
+  int public_property;
+private:
+  int private_property;
+protected:
+  int protected_property;
+}
+```
+**METHOD:** Phương thức cũng giống như một hàm bình thường.Đối với phương thức thì có hai cách định nghĩa thi hành: định nghĩa thi hành trong lúc định nghĩa class và định nghĩa thi hành bên ngoài class.
+Ví dụ
+```sh
+class Animal {
+ public:
+ string sound;
+ void makeNoise()
+{
+ cout << sound; // định nghĩa bên trong class
+}
+};
+void Animal::makeNoise() {
+ cout << sound; // định nghĩa bên ngoài class
+}
+```
+**Constructor:** Constructor hay hàm dựng là một hàm đặc biệt, nó sẽ được gọi ngay khi chúng ta khởi tạo một object. 
+
+**Destructor:** Có nhiệm vụ thu hồi lại bộ nhớ được cấp phát cho đối tượng thuộc lớp.
+Ví dụ :
+```sh
+class Person {
+public:
+ string firstName;
+ string lastName;
+ int age;
+ Person(string _firstName, string _lastName, int _age)/// CONSTRUCTOR
+ {
+ firstName = _firstName;
+ lastName = _lastName;
+ age = _age;
+ }
+ void fullname() {
+cout << firstName << ' ' << lastName;
+ }
+~Person(){ // DESTRUCTOR
+....
+};
+```
+**STATIC MEMBER:** Static member hay thành viên tĩnh trong class C++, bạn có thể khai báo nhiều object, mỗi object các thuộc tính
+của nó đều khác nhau nhưng riêng static thì chỉ có một và static member tồn tại trong suốt chương trình cho dù có hay không có object nào của nó hay nói ngắn gọn là dùng chung một biến static.
+
+## ĐẶC TÍNH CỦA LẬP TRÌNH HƯỚNG ĐỐI TƯỢNG
+
+**Inheritance (Tính kế thừa ):** trong lập trình hướng đối tượng có ý nghĩa, một class có thể kế thừa các thuộc tính của một class khác đã tồn tại trước đó.
+Khi một class con được tạo ra bởi việc kế thừa thuộc tính của class cha thì chúng ta sẽ gọi class con đó là subclass trong C++, và class cha chính là superclass trong C++.
+**Abstraction (Tính trừu tượng):** trong lập trình hướng đối tượng là một khả năng mà chương trình có thể bỏ qua sự phức tạp bằng cách tập trung vào cốt lõi của thông tin cần xử lý.
+Điều đó có nghĩa, bạn có thể xử lý một đối tượng bằng cách gọi tên một phương thức và thu về kết quả xử lý, mà không cần biết làm cách nào đối tượng đó được các thao tác trong class.
+**Polymorphism (Tính đa hình) :** trong lập trình hướng đối tượng là một khả năng mà một phương thức trong class có thể đưa ra các kết quả hoàn toàn khác nhau, tùy thuộc vào dữ liệu được xử lý.
+**Encapsulation (Tính đóng gói):** trong lập trình hướng đối tượng có ý nghĩa không cho phép người sử dụng các đối tượng thay đổi trạng thái nội tại của một đối tượng, mà chỉ có phương thức nội tại của đối tượng có thể thay đổi chính nó.
+Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu.
+
+
