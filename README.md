@@ -436,18 +436,53 @@ của nó đều khác nhau nhưng riêng static thì chỉ có một và static
 
 ## ĐẶC TÍNH CỦA LẬP TRÌNH HƯỚNG ĐỐI TƯỢNG
 
-**Inheritance (Tính kế thừa ):** trong lập trình hướng đối tượng có ý nghĩa, một class có thể kế thừa các thuộc tính của một class khác đã tồn tại trước đó.
+**Inheritance (Tính kế thừa ):** trong lập trình hướng đối tượng , một class có thể kế thừa các thuộc tính của một class khác đã tồn tại trước đó.
 
 Khi một class con được tạo ra bởi việc kế thừa thuộc tính của class cha thì chúng ta sẽ gọi class con đó là subclass trong C++, và class cha chính là superclass trong C++.
 
+Có 3 kiểu tính kế thừa:
++ Kiểu pubic:
+  
+  Class cha ( public) -> class con (public)
+  
+  Class cha (protected) -> class con ( protected)
+  
+  Class cha (private) -> ko kế thừa đc
+  
++ Kiểu protected:
+ 
+  Class cha (public)-> class con (protected)
+  
+  Class cha (protected) -> class con (protected)
+  
+  private tương tự
+  
++ Kiểu pirave :
+ 
+  Class cha ( public) -> class con (private)
+  
+  Class cha (protected) -> class con (private)
+
 **Abstraction (Tính trừu tượng):** trong lập trình hướng đối tượng là một khả năng mà chương trình có thể bỏ qua sự phức tạp bằng cách tập trung vào cốt lõi của thông tin cần xử lý.
 
-Điều đó có nghĩa, bạn có thể xử lý một đối tượng bằng cách gọi tên một phương thức và thu về kết quả xử lý, mà không cần biết làm cách nào đối tượng đó được các thao tác trong class.
+Có nghĩa là sử dụng một method ( nằm trong private hoặc protected), thông qua nó thì một method chính mới có được kết quả. giống như nâng cấp của tính đóng gói
 
 **Polymorphism (Tính đa hình) :** trong lập trình hướng đối tượng là một khả năng mà một phương thức trong class có thể đưa ra các kết quả hoàn toàn khác nhau, tùy thuộc vào dữ liệu được xử lý.
+Ví dụ : 
+```sh
+class TinhTong
+  public:
+  void Tong( int a , int b){
+      cout << a +b << endl;
+  void Tong ( float a , float b){
+      cout << a +b << endl;
+  void Tong ( int a , int b , int c){
+      cout << a+ b +c<<endl;
+```
+      
 
 **Encapsulation (Tính đóng gói):** trong lập trình hướng đối tượng có ý nghĩa không cho phép người sử dụng các đối tượng thay đổi trạng thái nội tại của một đối tượng, mà chỉ có phương thức nội tại của đối tượng có thể thay đổi chính nó.
 
-Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu.
+Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu =>> CÁC PROPERTY phải nằm ở trong protected hoặc private. 
 
 
