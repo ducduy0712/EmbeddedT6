@@ -480,9 +480,140 @@ class TinhTong
       cout << a+ b +c<<endl;
 ```
       
-
 **Encapsulation (Tính đóng gói):** trong lập trình hướng đối tượng có ý nghĩa không cho phép người sử dụng các đối tượng thay đổi trạng thái nội tại của một đối tượng, mà chỉ có phương thức nội tại của đối tượng có thể thay đổi chính nó.
 
 Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu =>> CÁC PROPERTY phải nằm ở trong protected hoặc private. 
+**TEMPLATE:**
++ Template (khuôn mẫu) là một từ khóa trong C++, và là một kiểu dữ liệu trừu tượng tổng quát hóa cho các kiểu dữ liệu int, float, double, bool...
++ Template trong C++ có 2 loại đó là function template & class template.
++ Template giúp người lập trình định nghĩa tổng quát cho hàm và lớp thay vì phải nạp chồng (overloading) cho từng hàm hay phương thức với những kiểu dữ liệu khác nhau
+Ví dụ : cũng mang tính chất đa hình.
+```sh
+template <typename bien>
+
+bien tong(bien a, bien b){
+  return (bien)(a+b);
+}
+int main{
+tong ( 6 ,7); // kq la 13
+```
+
+**NAMESPACE:** Namespace là từ khóa trong C++ được sử dụng để định nghĩa một phạm vi nhằm mục đích phân biệt các hàm, lớp, biến, ... cùng tên trong các thư viện khác nhau.
+
+Tình huống sử dụng: có 2 file A và B có cùng tên hàm hoặc biến ( nhưng giá trị khác nhau) thì phải sử dụng namespace để cho compiler hiểu , tránh bị lỗi.
+
+Có thể sử dụng cú pháp using namespace fileA để sử dụng trực tiếp các biến hoặc hàm trong fileA, không cần phải thông qua fileA::biến.
+
+**VIRTUAL FUNCTION:** Hàm ảo được sử dụng trong trường hợp một method trong class cha được class con kế thừa và muốn sử dụng override ( thay đổi method đó) =>> đặc tính overload.
+
+Ví dụ
+```sh
+class Sinhvien{
+  protected:
+    virtual char *comment(){
+    return (char*)"class sinh vien";
+  }
+  public
+  void display(){
+  printf("%s\n",comment());
+    }
+};
+class hocsinh : pubic Sinhvien{
+  private:
+    char *comment(){
+    return (char*)"class hoc sinh";
+};
+int main(){
+  hocsinh hs;
+hs.display; // in ra class hoc sinh
+return 0;
+}
+```
+
+*CHÚ Ý:* 
++ Con trỏ của lớp cơ sở có thể chứa địa chỉ của đối tượng thuộc lớp dẫn xuất, nhưng ngược lại thì không được.
+
++ Hàm ảo chỉ khác hàm thành phần thông thường khi được gọi từ một con trỏ. Sử dụng hàm ảo khi muốn con trỏ đang trỏ tới đối tượng của lớp nào thì hàm thành phần của lớp đó sẽ được gọi mà không xem xét đến kiểu của con trỏ.
+
+**VECTOR:** LÀ MỘT CLASS.
++ Giống như là mảng (array), vector trong C++ là một đối tượng dùng để chứa các đối tượng khác, và các đối tượng được chứa này cũng được lưu trữ một cách liên tiếp trong vector.
+
++ Tuy nhiên, nếu như số lượng phần tử (size) của một mảng là cố định, thì ở vector, nó hoàn toàn có thể thay đổi trong suốt quá trình làm việc của chương trình.
+
+Ví dụ:
+```sh
+int main(){
+vector<int> array;
+
+array.push_back(18);
+
+array.push_back(1);
+
+array.push_back(2);
+
+array.push_back(3);
+
+array.insert(array.begin()+1,35);
+
+for ( int = 0; i < array.size(); i++){
+  cout<< array[i]<<endl;
+}
+for ( int item : array){
+  count << item << endl; }// for cải tiến của c ++ tương tự như thằng trên
+```
+**LIST:** Cũng tương tự như array nhưng mỗi địa chỉ của member trong list là riêng biệt, không liền kề nhau.
+
+Khi làm việc với list muốn thay đổi giá trị phải thông qua interator.
+
+Ví dụ
+```sh
+int main(){
+
+list<int> array;
+
+array.push_back(18);
+
+array.push_back(1);
+
+array.push_back(2);
+
+array.push_back(3);
+
+list <int>::interator it;
+int i = 0;
+// Xuat gia tri trong list
+for ( it = array.begin; it != array.end(); it ++){
+  cout << *it<< endl;
+}
+// Chen vao vi tri bat ky
+for ( it = array.begin; it != array.end(); it ++){
+if (i = 2){
+array.insert(it, 30);
+} i++;
+};
+```
+
+**LAMBDA:** là một hàm được tạo ra để sử dụng ngay lập tức để tránh tình trạng lãng phí bộ nhớ.
+
+Ví dụ
+```sh
+#include <iostream>
+using namespcate std;
+
+int main(){
+
+int a = 10;
+int f = 30;
+int k = 40;
+
+auto func = [=]( int a , int b) -> int{
+  return a +b +c +k;
+};
+
+cout << func( 18 ,2 )<<endl; // kq la 90
+return 0;
+}
+```
+
 
 
