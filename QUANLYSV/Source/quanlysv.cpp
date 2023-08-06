@@ -7,6 +7,17 @@
 #include "C:\Users\duydu\code\QUANLYSV\Header\quanlysv.hpp"
 using namespace std;
 
+SinhVien::SinhVien(string ten, string gioi_tinh, int Tuoi, double diemtoan, double diemly, 
+double diemhoa){
+    static int id = 1000;
+    GIOI_TINH = gioi_tinh;
+    tuoi = Tuoi;
+    ID = id;
+    id++;
+    TEN = ten;
+    diem_toan = diemtoan;
+    diem_hoa = diemhoa;
+    diem_ly = diemly;
 
 // cac ham get
 int SinhVien::getid(){
