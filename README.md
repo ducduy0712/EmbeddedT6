@@ -618,7 +618,7 @@ return 0;
 ```
 ##C++ NÂNG CAO
 
-**Cấp phát động: ** 
+**Cấp phát động:** 
 Ví dụ:
 ```sh
 int *ptr = new int; // cấp phát 1 địa chỉ lưu trên ram
@@ -648,7 +648,7 @@ void test1(){
 }
 ```
 
-**Đa luồng: ** Các chương trình có thể chạy song song với nhau, không theo tuần tự trên xuống. Sử dụng thư viện thread.
+**Đa luồng:** Các chương trình có thể chạy song song với nhau, không theo tuần tự trên xuống. Sử dụng thư viện thread.
 Ví dụ:
 ```sh
 #include <thread>
@@ -677,7 +677,7 @@ int main(){
 return 0;
 }
 ```
-**Mutex: ** Cũng mang tính đa luồng nhưng khi  sử dụng lock mutex thì chỉ 1 trong số nhưng hàm đó đc chạy, hàm này chạy xong thì hàm kia mới chạy tiếp. Sử dụng thư viện mutex.
+**Mutex:** Cũng mang tính đa luồng nhưng khi  sử dụng lock mutex thì chỉ 1 trong số nhưng hàm đó đc chạy, hàm này chạy xong thì hàm kia mới chạy tiếp. Sử dụng thư viện mutex.
 Ví dụ:
 ```sh
 #include <mutex>
@@ -701,7 +701,7 @@ int main(){
 return 0;
 }
 ```
-**Condition_variable: ** Biến điều kiện, sử dụng trong đa luồng và có mutex, muốn một hàm khác chạy khi hàm kia chưa chạy xong bằng biến điều kiện. Sử dụng thư viện condition_variable.
+**Condition_variable:** Biến điều kiện, sử dụng trong đa luồng và có mutex, muốn một hàm khác chạy khi hàm kia chưa chạy xong bằng biến điều kiện. Sử dụng thư viện condition_variable.
 Ví dụ:
 ```
 #include <mutex>
