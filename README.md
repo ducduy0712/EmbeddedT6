@@ -614,7 +614,117 @@ auto func = [=]( int a , int b) -> int{
 cout << func( 18 ,2 )<<endl; // kq la 90
 return 0;
 }
+
+```
+##C++ NÂNG CAO
+
+**Cấp phát động: ** 
+Ví dụ:
+```sh
+int *ptr = new int; // cấp phát 1 địa chỉ lưu trên ram
+
+int *aray = new int[4] // tạo ra 1 mảng để cấp phát gồm 4 phần từ
+
+for (int i = 0; i < 4; i++){
+array[i] = i; /// tạo ra 1 mảng array = {0,1,2,3}
+delete[] array; // xóa mảng (tương tự như free bên c)
+}
+```
+**Smart pointer:** Cũng cấp phát động nhưng tự động thu hồi lại bộ nhớ khi thoát khỏi block code, không cần xài delete, nằm trong thư viện memory.
+Ví dụ:
+```sh
+#include <memory>
+#include <iostream>
+
+using namespace std;
+void test(){
+  unique_ptr<int> array(new int(5)); // cấp phát 1 địa chỉ lưu = 5
+cout << *array << endl;
+}
+
+void test1(){
+  shared_ptr<int> array(new int(5)); // cấp phát 1 địa chỉ lưu = 5
+  shared_ptr<int> = array; // cũng tương tự như unique nhưng các shared_ptr  trỏ đến cùng 1 địa chỉ.
+}
 ```
 
+**Đa luồng: ** Các chương trình có thể chạy song song với nhau, không theo tuần tự trên xuống. Sử dụng thư viện thread.
+Ví dụ:
+```sh
+#include <thread>
+#include <chrono>
 
+using namespace std;
 
+void func1(){
+while(1){
+  this_thread::sleep_for(chrono::seconds(1));// trong second là hàm delay
+  cout << "id wait 1s" << endl;
+}
+}
+
+void func2(){
+while(1){
+  this_thread::sleep_for(chrono::seconds(2));// trong second là hàm delay
+  cout << "id wait 2s" << endl;
+}
+}
+int main(){
+  thread t1(func1);
+  thread t2(func2);
+  t1.join();
+  t2.join(); /// 2 hàm chạy song song với nhaunhau
+return 0;
+}
+```
+**Mutex: ** Cũng mang tính đa luồng nhưng khi  sử dụng lock mutex thì chỉ 1 trong số nhưng hàm đó đc chạy, hàm này chạy xong thì hàm kia mới chạy tiếp. Sử dụng thư viện mutex.
+Ví dụ:
+```sh
+#include <mutex>
+#include <thread>
+
+int bank_account = 100;
+mutex account_mutex;
+void func(){
+  lock_guard <mutex> lock (account_mutex);
+  bank_acount++;
+}
+void func2(){
+  lock_guard <mutex> lock (account_mutex);
+  bank_acount--;
+}
+int main(){
+  thread t1(func1);
+  thread t2(func2);
+  t1.join();
+  t2.join(); /// 2 hàm chạy song song với nhau nhau, nhưng func chạy xong mới đến func2
+return 0;
+}
+```
+**Condition_variable: ** Biến điều kiện, sử dụng trong đa luồng và có mutex, muốn một hàm khác chạy khi hàm kia chưa chạy xong bằng biến điều kiện. Sử dụng thư viện condition_variable.
+Ví dụ:
+```
+#include <mutex>
+#include <thread>
+#include <condition_variable>
+
+using namespace std;
+
+int value;
+bool check = false;
+mutex mtx;
+condition_variable cond_var;
+
+void writer(){
+  this_thread::sleep_for(chrono::seconds(2));
+  lock_guard <mutex> lock (mtx);
+  value = 23;
+  check = true;
+  cond_var.notify_one(); // báo trạng thái 
+}
+void reader(){
+  unique_lock<mutex> lock(mtx);// check khóa
+  cond_var.wait(lock,[] {return check;}); // cứ gọi cond_var.notify thì nó sẽ check, khi nào check = true thì sẽ mở khóa
+  cout << "value: " << value;
+}
+```
