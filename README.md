@@ -616,7 +616,7 @@ return 0;
 }
 
 ```
-##C++ NÂNG CAO
+## C++ NÂNG CAO
 
 **Cấp phát động:** 
 Ví dụ:
@@ -728,3 +728,32 @@ void reader(){
   cout << "value: " << value;
 }
 ```
+## NHÚNG
+**SPI:** (Serial Peripheral Interface) là một chuẩn truyền thông nối tiếp tốc độ cao do Motorola đề xuất.
+⦁	Các bit dữ liệu được truyền nối tiếp nhau và có xung clock đồng bộ.
+⦁	Giao tiếp song công, có thể truyền và nhận cùng một thời điểm.
+⦁	Khoảng cách truyền ngắn, được sử dụng để trao đổi dữ liệu với nhau giữa các chip trên cùng một bo mạch.
+⦁	Tốc độ truyền khoảng vài Mb/s.
+⦁	Các dòng vi điều khiển thường được tích hợp module giao tiếp SPI dùng để giao tiếp truyền dữ liệu với các vi điều khiển khác, hoặc giao tiếp với các ngoại vi bên ngoài như cảm biến, EEPROM, ADC, LCD, SD Card,…
+Giao tiếp 1 Master với 1 Slave
+Bus SPI gồm có 4 đường tín hiệu:
+⦁	SCLK: Serial Clock
+⦁	MOSI: Master Out, Slave In
+⦁	MISO: Master In, Slave Out
+⦁	SS: Slave Select
+Cách truyền và nhận dữ liệu
+ ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/3870eb89-f056-4b77-9f12-c8f343f9d1a2)
+ **Cấu tạo và chức năng các chân:**
+⦁ SCK (Serial Clock): Thiết bị Master tạo xung tín hiệu SCK và cung cấp cho Slave. Xung này có chức năng giữ nhịp cho giao tiếp SPI. Mỗi nhịp trên chân SCK báo 1 bit dữ liệu đến hoặc đi → Quá trình ít bị lỗi và tốc độ truyền cao.
+⦁ MISO (Master Input Slave Output): Tín hiệu tạo bởi thiết bị Slave và nhận bởi thiết bị Master. Đường MISO phải được kết nối giữa thiết bị Master và Slave.
+⦁ MOSI (Master Output Slave Input): Tín hiệu tạo bởi thiết bị Master và nhận bởi thiết bị Slave. Đường MOSI phải được kết nối giữa thiết bị Master và Slave.
+⦁ SS (Slave Select): Chọn thiết bị Slave cụ thể để giao tiếp. Để chọn Slave giao tiếp thiết bị Master chủ động kéo đường SS tương ứng xuống mức 0 (Low). Chân này đôi khi còn được gọi là CS (Chip Select). Chân SS của vi điều khiển (Master) có thể được người dùng tạo bằng cách cấu hình 1 chân GPIO bất kỳ chế độ Output.
+**Qúa trình truyền dữ liệu:** 
+⦁ Mỗi chip Master hay Slave đều có một thanh ghi dữ liệu 8 bits.
+⦁ Quá trình truyền nhận giữa Master và Slave xảy ra đồng thời sau 8 chu kỳ đồng hồ, một byte dữ liệu được truyền theo cả 2 hướng 
+⦁ Quá trình trao đổi dữ liệu bắt đầu khi Master tạo 1 xung clock từ bộ tạo xung nhịp (Clock Generator) và kéo đường SS của Slave mà nó truyền dữ liệu xuống mức Low.
+⦁ Cứ 1 xung clock, Master sẽ gửi đi 1 bit từ thanh ghi dịch (Shift Register) của nó đến thanh ghi dịch của Slave thông qua đường MOSI. Đồng thời Slave cũng gửi lại 1 bit đến cho Master qua đường MISO.Như vậy sau 8 chu kỳ clock thì hoàn tất việc truyền và nhận 1 byte dữ liệu.
+⦁ Dữ liệu của 2 thanh ghi được trao đổi với nhau nên tốc độ trao đổi diễn ra nhanh và hiệu quả.
+
+
+
