@@ -915,9 +915,134 @@ Có thể tóm tắt lại như sau. Quá trình truyền dữ liệu diễn ra 
 UART là giao thức không đồng bộ, do đó không có đường clock nào điều chỉnh tốc độ truyền dữ liệu. Người dùng phải đặt cả hai thiết bị để giao tiếp ở cùng tốc độ. Tốc độ này được gọi là tốc độ truyền, được biểu thị bằng bit trên giây hoặc bps. Tốc độ truyền thay đổi đáng kể, từ 9600 baud đến 115200 và hơn nữa. Tốc độ truyền giữa UART truyền và nhận chỉ có thể chênh lệch khoảng 10% trước khi thời gian của các bit bị lệch quá xa.
 
 **GIAO THỨC CAN:**
+
 Controller Area Network (CAN hoặc CAN Bus) là công nghệ mạng nối tiếp, tốc độ cao, bán song công, hai dây. Ban đầu CAN được thiết kế dành cho ngành công
 nghiệp ô tô, tuy nhiên hiện nay CAN cũng đã trở thành một tiêu chuẩn phổ biến trong tự động hóa công nghiệp và các ngành khác.
 
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/fae69f91-e418-4228-92ee-4d06e0ee2706)
 
+**CAN TRANSCEIVER:**
 
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/5db8c022-1cb2-4b72-877d-90bccf78e34b)
+
+Truyền dữ liệu: Đi từ MCU ra 2 chân CANTX ra 2 chân CANH hoặc CANL để truyền dữ liệu, chỉ truyền ra không nhận lại trên TX vì có diot.
+
+Nhận dữ liệu: Nhận dữ liệu từ 2 chân từ CANH hoặc CANL truyền qua chân CANRX vào MCU.
+
+*CANH và CANL được bắt xoắn dây với nhau để tránh hiện tượng nhiễu làm sai lệch dữ liệu truyền nhận*
+
+BUS CAN gồm 2 trạng thái là dominent và recessive, tương ứng với trạng thái 0 và 1
+
+Dominent gồm 2 dạng truyền là CAN SLOW SPEED và CAN HIGH SPEED
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/44c0367c-78e5-495e-81f4-9f240189a501)
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/8a2c7a2c-63ee-4beb-a23c-f2e9695b35be)
+
+
+Ví dụ: Khi MCU muốn truyền bit 0 cho các node khác ở chế độ slow speed, nó sẽ truyền bit 0 cho CAN CONTROLER, CAN CONTROLER -> Transceiver sẽ biến điện áp ở CANH = 4V và CANL = 1V, ngược lại muốn truyền bit 1 thì CANH = 1.75V, CANL = 3.25V.
+
+Khi đọc dữ liệu, transceiver sẽ tính trị tuyệt đối giữa CANH và CANL, nếu CANH - CANL > = 3V sẽ hiểu là bit 0 , <=1.75 là bit 1.
+
+Mỗi CAN sẽ có 1 ID khác nhau, mỗi ID sẽ có mức độ ưu tiên khác nhau, nếu ID nào có độ ưu tiên lớn hơn sẽ truyền trước.
+
+Ví dụ: Khi có 3 ID cùng đang truyền =>> tín hiệu transceiver nhận được ở CANH và CANL không phải là điện áp quy định =>> nhận ra có nhiều thằng truyền 1 lúc (ID càng nhỏ độ ưu tiên càng lớn)
+
+DATAFRAME CAN
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/e3c199c9-e187-44dd-b941-e3909219a4c3)
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/f782c2e3-8aca-4d4f-8af0-51a4a0929dbd)
+
+
+**1. Trường bắt đầu khung (Start Of Frame Field – SOF)**
+
+Với cả 2 định dạng của chuẩn CAN 2.0 thì trường bắt đầu là vị trí của bit đầu tiên trong khung. Trường này chiếm 1 bit dữ liệu. Bit đầu tiên này là một Dominant Bit (mức logic 0) đánh dấu sự bắt đầu của một Data Frame.
+
+**2. Trường xác định quyền ưu tiên (Arbitration Field)**
+
+Định dạng vùng xác định quyền ưu tiên là khác nhau đối với dạng khung chuẩn và khung mở rộng.
+
+● Định dạng chuẩn: vùng xác định quyền ưu tiên có độ dài 12 bit, bao gồm 11 bit ID và 1 bit RTR.
+
+● Định dạng mở rộng: trường xác định quyền ưu tiên có độ dài 32 bit, bao gồm có 29 bit ID, 1 bit SRR, 1 bit IDE và 1 bit RTR.
+
+Trong đó:
+
+*Bit RTR (Remote Transmission Request)*
+
+● Là bit dùng để phân biệt khung là Data Frame hay Remote Frame.
+● Nếu là Data Frame, bit này luôn bằng 0 (Dominant Bit).
+● Nếu là Remote Frame, bit này luôn bằng 1 (Recessive Bit).
+● Vị trí bit này luôn nằm sau bit ID.
+
+Trường hợp nếu Data Frame và Remote Frame có cùng ID được gửi đi đồng thời thì Data Frame sẽ được ưu tiên hơn.
+
+*Bit SRR (Substitute Remote Request)*
+
+● Bit này chỉ có ở khung mở rộng.
+● Bit này có giá trị là 1 (Recessive Bit).
+● So với vị trí tương ứng trong khung chuẩn thì bit này trùng với vị trí của bit
+RTR nên còn được gọi là bit thay thế (Substitute).
+
+Giả sử có hai Node cùng truyền, một Node truyền Data Frame chuẩn, một Node truyền Data Frame mở rộng có ID giống nhau thì Node truyền khung chuẩn sẽ thắng phân xử quyền ưu tiên vì đến vị trí sau ID, khung chuẩn là bit RTR = 0, còn khung mở rộng là bit SRR = 1. Như vậy, khung chuẩn chiếm ưu thế hơn so với khung mở rộng khi có ID như nhau.
+
+*Bit IDE (Identifier Extension)*
+
+● Đây là bit phân biệt giữa loại khung chuẩn và khung mở rộng: IDE = 0 quy định khung chuẩn, IDE = 1 quy định khung mở rộng.
+
+● Bit này nằm ở trường xác định quyền ưu tiên với khung mở rộng và ở trường điều khiển với khung chuẩn.
+
+**3. Trường điều khiển (Control Field)**
+
+Khung chuẩn và khung mở rộng có định dạng khác nhau ở trường này:
+
+● Khung chuẩn gồm IDE, r0 và DLC (Data Length Code).
+
+● Khung mở rộng gồm r1, r0 và DLC.
+
+Trong đó:
+
+Bit IDE: Dùng phân biệt loại khung (đã được trình bày ở trên).
+
+Bit r0, r1 (hai bit dự trữ)
+
+Tuy hai bit này phải được truyền là Recessive Bit bởi bộ truyền nhưng bộ nhận không quan tâm đến giá trị 2 bit này. Bộ nhận có thể nhận được các tổ hợp 00, 01, 10 hoặc 11 của r1 và r0 nhưng không coi đó là lỗi mà bỏ qua và nhận thông điệp bình thường.
+
+*DLC (Data Length Code)*
+
+● Có độ dài 4 bit quy định số byte của trường dữ liệu của Data Frame
+
+● Chỉ được mang giá trị từ 0 đến 8 tương ứng với trường dữ liệu có từ 0 đến 8 byte dữ liệu. Data Frame có thể không có byte dữ liệu nào khi DLC = 0.
+
+● Giá trị lớn hơn 8 không được phép sử dụng. Hình dưới mô tả các loại mã bit mà DLC có thể chứa để quy định số byte của trường dữ liệu.
+
+**4. Trường dữ liệu (Data Field)**
+
+Trường này có độ dài từ 0 đến 8 byte tùy vào giá trị của DLC ở trường điều khiển
+
+**5. Trường kiểm tra (Cyclic Redundancy Check Field – CRC)**
+
+Trường kiểm tra hay trường CRC gồm 16 bit và được chia làm hai phần là:
+
+● CRC Sequence: gồm 15 bit CRC tuần tự
+
+● CRC Delimiter: là một Recessive Bit làm nhiệm vụ phân cách trường CRC với trường ACK
+
+● Mã kiểm tra CRC phù hợp nhất cho các khung mà chuỗi bit được kiểm tra có chiều dài dưới 127 bit, mã này thích hợp cho việc phát hiện các trường hợp sai nhóm (Bus Error). Ở đây, tổng bit từ trường bắt đầu (SOF) đến trường dữ liệu (Data Field) tối đa là 83 bit (khung định dạng chuẩn) và 103 bit (khung định dạng mở rộng).
+
+=> Trường CRC bảo vệ thông tin trong Data Frame và Remote Frame bằng cách thêm các bit kiểm tra dự phòng ở đầu khung truyền. Ở đầu khung nhận, cũng sẽ tính toán CRC như bộ truyền khi đã nhận dữ liệu và so sánh kết quả đó với CRC Sequence mà nó đã nhận được, nếu khác nhau tức là đã có lỗi, nếu giống nhau tức là đã nhận đúng từ trường SOF đến trường dữ liệu.
+
+**6. Trường báo nhận (Acknowledge Field – ACK)**
+
+Trường báo nhận hay trường ACK có độ dài 2 bit và bao gồm hai phần là ACK Slot và ACK Delimiter.
+
+● ACK Slot: có độ dài 1 bit, một Node truyền dữ liệu sẽ thiết lập bit này là Recessive. Khi một hoặc nhiều Node nhận chính xác giá trị thông điệp (không có lỗi và đã so sánh CRC Sequence trùng khớp) thì nó sẽ báo lại cho bộ truyền bằng cách truyền ra một Dominant Bit ngay vị trí ACK Slot để ghi đè lên Recessive Bit của bộ truyền.
+
+● ACK Delimiter: có độ dài 1 bit, nó luôn là một Recessive Bit. Như vậy, ta thấy rằng ACK Slot luôn được đặt giữa hai Recessive Bit là CRC Delimiter và ACK Delimiter.
+
+**7. Trường kết thúc (End Of Frame Field – EOF)**
+
+Trường EOF là trường thông báo kết thúc một Data Frame hay Remote Frame.
+
+Trường này gồm 7 Recessive Bit.
