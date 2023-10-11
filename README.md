@@ -1083,7 +1083,7 @@ Xung nhịp đưa vào đếm có thể là một trong hai loại:
 Một khái niệm quan trọng cần phải nói đến là sự kiện “tràn” (overflow). Nó được hiểu là sự kiện bộ đếm đếm vượt quá giá trị tối đa mà nó có thể biểu diễn và quay trở về giá trị 0. Với bộ đếm 8 bit, giá trị tối đa là 255 (tương đương với FF trong hệ Hexa) và là 65535 (FFFFH) với bộ đếm 16 bit.
 
 
-PROJECT: TPMS
+# PROJECT: TPMS
 
 Hệ thống giám sát nhiệt độ và áp suất của từng bánh xe, hiển thị và cảnh báo cho người dùng thông qua màn hình monitoring. 
 
