@@ -1,4 +1,4 @@
-# EmbeddedT6
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/320c3a39-4021-43a6-a441-d456ea004939)# EmbeddedT6
 
 # C
 
@@ -1065,6 +1065,12 @@ Trường này gồm 7 Recessive Bit.
 
 - Khi bộ vi điều khiển quay trở về nơi nó đã bị ngắt. Trước hết nó nhận địa chỉ của bộ đếm chương trình PC từ Stack pointer bằng cách kéo 02 byte trên đỉnh của Stack pointer vào PC. Sau đó bắt đầu thực hiện tiếp các lệnh từ địa chỉ đó.
 
+**Các loại kiểu ngắt:**
+- LOW: Kích hoạt liên tục khi trạng thái digital ở mức thấp.
+- HIGH: Kích hoạt liên tục khi trạng thái digital ở mức cao.
+- RISING: Kích hoạt khi trạng thái của chân digital chuyển từ mức điện áp thấp sang mức điện áp cao.
+- FALLING: Kích hoạt khi trạng thái của chân digital chuyển từ mức điện áp cao sang mức điện áp thấp.
+
 
 
 **Timer:** Bộ đếm/Bộ định thời: Đây là các ngoại vi được thiết kế để thực hiện một nhiệm vụ đơn giản: đếm các xung nhịp. Mỗi khi có thêm một xung nhịp tại đầu vào đếm thì giá trị của bộ đếm sẽ được tăng lên 01 đơn vị (trong chế độ đếm tiến/đếm lên) hay giảm đi 01 đơn vị (trong chế độ đếm lùi/đếm xuống).
@@ -1077,7 +1083,26 @@ Xung nhịp đưa vào đếm có thể là một trong hai loại:
 Một khái niệm quan trọng cần phải nói đến là sự kiện “tràn” (overflow). Nó được hiểu là sự kiện bộ đếm đếm vượt quá giá trị tối đa mà nó có thể biểu diễn và quay trở về giá trị 0. Với bộ đếm 8 bit, giá trị tối đa là 255 (tương đương với FF trong hệ Hexa) và là 65535 (FFFFH) với bộ đếm 16 bit.
 
 
+PROJECT: TPMS
 
+Hệ thống giám sát nhiệt độ và áp suất của từng bánh xe, hiển thị và cảnh báo cho người dùng thông qua màn hình monitoring. 
 
+Hệ thống bao gồm : 
++ 4 cảm biến TPS gắn vào 4 bánh xe, trong mỗi TPS bao gồm : cảm biến nhiệt độ, cảm biến áp suất, pin, bộ RF transmit.
++ ECU: RF receiver, mcu nhận thông tin từ RF.
++ Màn hình hiển thị: kết nối giao tiếp với ecu, giao thức : ....
+
+Khi hoạt động ECU sẽ gửi tín hiệu remote frame cho các TPS, TPS sẽ gửi lại data frame cho ECU bao gồm : trạng thái lốp, thông số áp suất.
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/dabfc299-1730-4eac-a2a8-5dc540698b6d)
+
+Áp suất tiêu chuẩn: 
++ Sedan: 32psi - 35psi (220kpa - 240kpa)
++ SUV : 35psi - 45 psi (240kpa - 310kpa)
+
+Sau khi nhận được thông số từ TPS, ECU sẽ so sánh thông số nhận được với thông số tiêu chuẩn đã thiết lập trong chương trình
+VD : nếu áp suất < áp suất tiêu chuẩn 20% sẽ cảnh báo, thấp hơn nữa sẽ buộc dừng xe (< 20 %)
+
+Sẽ có một thẻ nhớ để lưu các thông tin của xe -> ktv có thể cắm máy test để nhận được thông tin này.
 
 
