@@ -1105,4 +1105,20 @@ VD : nếu áp suất < áp suất tiêu chuẩn 20% sẽ cảnh báo, thấp h�
 
 Sẽ có một thẻ nhớ để lưu các thông tin của xe -> ktv có thể cắm máy test để nhận được thông tin này.
 
+# AUTONOMUS PARKING SYSTEM
+
+Hệ thống đỗ xe tự động là hệ thống hỗ trợ cho xe tự động tìm vị trí đỗ xe phù hợp và thực hiện thao tác đỗ mà không cần đến sự can thiệp của người lái.
+Hệ thống này hoạt động thông qua việc kết hợp giữa máy tính trên xe và các cảm biến, camera để xác định vị trí, khoảng cách, hướng đi, hỗ trợ chiếc xe hoặc tìm kiếm nơi đỗ phù hợp nhất.
+Sử dụng camera để xác định khoảng cách, nhận diện chướng ngại vật, nhận diện vị trí thích hợp, biển báo, ....
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/316920df-94c0-4149-a91e-c08423faf51d)
+
+Trước khi tự động đậu vào bãi xe, để xác định khoảng cách. Đầu tiên camera sẽ xác định điểm ảnh (điểm làm mốc) trong open cv, sẽ có 2 điểm làm mốc để tính khoảng cách này.
+
+Sử dụng thuật toán FIST.
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/c5597ae2-471c-4e95-8b5b-a954211ef94c)
+
+Đầu tiên sẽ chụp một bức ảnh, chương trình sẽ đọc ảnh, tiếp theo sẽ khởi tạo một ma trận điểm ảnh, mỗi pixel sẽ cấu tạo thành 1 bức ảnh, mỗi pixel sẽ có cường độ màu sắc từ 0 -> 1.
+
 
