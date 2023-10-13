@@ -1,4 +1,4 @@
-![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/320c3a39-4021-43a6-a441-d456ea004939)# EmbeddedT6
+# EmbeddedT6
 
 # C
 
