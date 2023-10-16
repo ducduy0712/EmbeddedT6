@@ -1153,7 +1153,8 @@ Camera và Lidar kết nối với MCU bằng USB. cả cụm là ECU đo khoả
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/22266dda-e4df-4f8f-9eb2-c3faf3cd79ea)
 
 Nhiệm vụ chính của Camera là để xác định khoảng cách, xác định số và vật thể.
-Nhiệm vụ của Lidar là phát ra sóng siêu âm để đo khoảng cách với vật thể xung quanh, hiệu chỉnh với khoảng cách từ camera để tính d chính xác nhất.
+
+Nhiệm vụ của Lidar là phát ra sóng siêu âm để đo khoảng cách trung bình với vật thể xung quanh, hiệu chỉnh với khoảng cách từ camera để tính d chính xác nhất.
 	
 
 
