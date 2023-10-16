@@ -1119,6 +1119,43 @@ Sử dụng thuật toán FIST.
 
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/c5597ae2-471c-4e95-8b5b-a954211ef94c)
 
-Đầu tiên sẽ chụp một bức ảnh, chương trình sẽ đọc ảnh, tiếp theo sẽ khởi tạo một ma trận điểm ảnh, mỗi pixel sẽ cấu tạo thành 1 bức ảnh, mỗi pixel sẽ có cường độ màu sắc từ 0 -> 1.
+Đầu tiên sẽ chụp một bức ảnh, chương trình sẽ đọc ảnh, tiếp theo sẽ khởi tạo một ma trận điểm ảnh, mỗi pixel sẽ cấu tạo thành 1 bức ảnh, mỗi pixel sẽ có cường độ màu sắc từ 0 -> 1. Khởi tạo 1 detector.
+
+Tiếp theo sẽ tìm điểm mốc trên ảnh, thuật toán này đã được training trước (tìm keypoints).
+
+Sau đó sẽ vẽ 1 đường thẳng từ camera ra điểm mốc và tính khoảng cách. CT tính d = FxW_real/W_image
+
+Trong dó d: khoảng cách
+F: Tiêu cự camera (bao nhiêu pixel)
+W_real: Chiều rộng điểm ảnh thực tế ngoài đời
+W_image: Chiều rộng điểm ảnh trên hình
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/805ce71f-ee6e-48fb-8b22-0a1ad24ee878)
+
+W_real, F có sẵn, W_image từ trong hàm của opencv tính ra được =>> tính ra đc d.
+
+Tiếp theo sẽ có thuật toán để xác định chữ số, vị trí vật thể để tính khoảng cách
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/806458ad-942c-489f-a586-f3b6c75f9f45)
+
+Khởi tạo HOG descriptor để xác định chữ số
+
+Khởi tạo hàm hog.detectMultiSacle();
+
+Sau đó sẽ có hàm tính khoảng cách từ xe đến mỗi chứ số.
+
+Tiếp theo sẽ có cảm biến lidar xác định khoảng cách trung bình
+
+Camera và Lidar kết nối với MCU bằng USB. cả cụm là ECU đo khoảng cách. trả về ECU chính bằng CAN
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/a62501cf-c801-45f9-b18b-5328eb8e68cb)
+
+![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/22266dda-e4df-4f8f-9eb2-c3faf3cd79ea)
+
+Nhiệm vụ chính của Camera là để xác định khoảng cách, xác định số và vật thể.
+Nhiệm vụ của Lidar là phát ra sóng siêu âm để đo khoảng cách với vật thể xung quanh, hiệu chỉnh với khoảng cách từ camera để tính d chính xác nhất.
+	
+
+
 
 
