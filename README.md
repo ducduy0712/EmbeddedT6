@@ -1119,9 +1119,15 @@ Sử dụng thuật toán FIST.
 
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/c5597ae2-471c-4e95-8b5b-a954211ef94c)
 
-Đầu tiên sẽ chụp một bức ảnh, chương trình sẽ đọc ảnh, tiếp theo sẽ khởi tạo một ma trận điểm ảnh, mỗi pixel sẽ cấu tạo thành 1 bức ảnh, mỗi pixel sẽ có cường độ màu sắc từ 0 -> 1. Khởi tạo 1 detector.
+Đầu tiên sẽ chụp một bức ảnh, chương trình sẽ đọc ảnh, tiếp theo sẽ khởi tạo một ma trận điểm ảnh, mỗi pixel sẽ cấu tạo thành 1 bức ảnh, mỗi pixel sẽ có cường độ màu sắc từ 0 -> 1. 
 
-Tiếp theo sẽ tìm điểm mốc trên ảnh, thuật toán này đã được training trước (tìm keypoints).
+Khởi tạo 1 detector. là một ma trận điểm ảnh, dùng để xác định vị trí tọa độ của key point trên bức ảnh. (tạo 1 hệ quy chiếu)
+
+Tiếp theo sẽ tìm điểm mốc trên ảnh, thuật toán này đã được training (import 1 file về các điểm mốc để training nhận biết các điểm mốc trên hình)  (tìm keypoints).
+
+vẽ điểm làm mốc lên ảnh
+
+Hiển thị lên ảnh đã vẽ điểm mốc
 
 Sau đó sẽ vẽ 1 đường thẳng từ camera ra điểm mốc và tính khoảng cách. CT tính d = FxW_real/W_image
 
@@ -1138,13 +1144,24 @@ Tiếp theo sẽ có thuật toán để xác định chữ số, vị trí vậ
 
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/806458ad-942c-489f-a586-f3b6c75f9f45)
 
-Khởi tạo HOG descriptor để xác định chữ số
+Khởi tạo HOG descriptor để convert ảnh sang ảnh trắng đen
 
-Khởi tạo hàm hog.detectMultiSacle();
+Khởi tạo 1 vector để lưu các chữ số nhận diện được, hàm hog.detectMultiSacle() để xác định được chữ số và lưu vào vector
 
-Sau đó sẽ có hàm tính khoảng cách từ xe đến mỗi chứ số.
+tiếp theo khởi taọ 1 vòng lặp for để vẽ các ô hình chữ nhật lên các chữ số, lấy được chiều rộng của số trên hình
+
+Sau đó sẽ có hàm tính khoảng cách từ xe đến mỗi chứ số bằng công thức
+
+Lidar : cảm biến sóng âm, để tính ra được khoảng cách của xe với vật thể, 
+
+khởi tạo check
+
+quét và check
 
 Tiếp theo sẽ có cảm biến lidar xác định khoảng cách trung bình
+
+
+
 
 Camera và Lidar kết nối với MCU bằng USB. cả cụm là ECU đo khoảng cách. trả về ECU chính bằng CAN
 
