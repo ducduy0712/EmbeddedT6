@@ -1088,6 +1088,7 @@ Một khái niệm quan trọng cần phải nói đến là sự kiện “trà
 Hệ thống giám sát nhiệt độ và áp suất của từng bánh xe, hiển thị và cảnh báo cho người dùng thông qua màn hình monitoring. 
 
 Hệ thống bao gồm : 
+Sử dụng vđk : NXP iMX RT1050 : cấu trúc coretex m7
 + 4 cảm biến TPS gắn vào 4 bánh xe, trong mỗi TPS bao gồm : cảm biến nhiệt độ, cảm biến áp suất, pin, bộ RF transmit.
 + ECU: RF receiver, mcu nhận thông tin từ RF.
 + Màn hình hiển thị: kết nối giao tiếp với ecu, giao thức : ....
@@ -1110,6 +1111,8 @@ Sẽ có một thẻ nhớ để lưu các thông tin của xe -> ktv có thể 
 Hệ thống đỗ xe tự động là hệ thống hỗ trợ cho xe tự động tìm vị trí đỗ xe phù hợp và thực hiện thao tác đỗ mà không cần đến sự can thiệp của người lái.
 Hệ thống này hoạt động thông qua việc kết hợp giữa máy tính trên xe và các cảm biến, camera để xác định vị trí, khoảng cách, hướng đi, hỗ trợ chiếc xe hoặc tìm kiếm nơi đỗ phù hợp nhất.
 Sử dụng camera để xác định khoảng cách, nhận diện chướng ngại vật, nhận diện vị trí thích hợp, biển báo, ....
+
+Sử dụng vđk : NXP LAYERSCAPE LS1016A cấu trúc coretex A7
 
 ![image](https://github.com/ducduy0712/EmbeddedT6/assets/136168376/316920df-94c0-4149-a91e-c08423faf51d)
 
@@ -1174,6 +1177,13 @@ Nhiệm vụ chính của Camera là để xác định khoảng cách, xác đ�
 Nhiệm vụ của Lidar là phát ra sóng siêu âm để đo khoảng cách trung bình với vật thể xung quanh, hiệu chỉnh với khoảng cách từ camera để tính d chính xác nhất.
 	
 
+# Quy trình làm việc khi nhận 1 task
 
+1. Identyfying the requirement: Manager sẽ gửi task qa mail, mình sẽ đọc yêu cầu của task. 1 project lớn bao gồm các module nhỏ, function nhỏ, các input, output
+2. Planning: Lên kế hoạch để code, xem các thiết bị giao tiếp với nhau bằng cách nào, bằng các hàm và thuật toán nào, ... xem thử mình đã biết hay chưa, nếu chưa thì cần thời gian bao lâu để research đc. Nói chung là đưa ra thời gian để nghiên cứu và hoàn thành
+3. Design: dựa trên những dự kiện đã có và tìm hiểu, code chương trình
+4. Build the software: build chương trình, đảm bảo chương trình không có lỗi và không có warning, phải fix tất cả các lỗi, đảm bảo đã pass requirement.
+5. Testing: Đưa bộ source cho team test, team test sẽ test xem code đã bao phủ hết những trường hợp mà yêu cầu đưa ra hay chưa.
+6. Development: Bước hoàn thành, đưa source code lên git, điền thông tin ai làm, ngày nào push lên, ai đã test. Đưa file excel cho manager kiểm tra.
 
 
