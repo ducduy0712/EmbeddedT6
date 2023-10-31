@@ -1088,7 +1088,7 @@ Một khái niệm quan trọng cần phải nói đến là sự kiện “trà
 Hệ thống giám sát nhiệt độ và áp suất của từng bánh xe, hiển thị và cảnh báo cho người dùng thông qua màn hình monitoring. 
 
 Hệ thống bao gồm : 
-Sử dụng vđk : NXP iMX RT1050 : cấu trúc coretex m7
+Sử dụng vđk : LPC54000 : cấu trúc coretex m4
 + 4 cảm biến TPS gắn vào 4 bánh xe, trong mỗi TPS bao gồm : cảm biến nhiệt độ, cảm biến áp suất, pin, bộ RF transmit.
 + ECU: RF receiver, mcu nhận thông tin từ RF.
 + Màn hình hiển thị: kết nối giao tiếp với ecu, giao thức : ....
